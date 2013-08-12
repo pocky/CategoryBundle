@@ -14,12 +14,13 @@ namespace Black\Bundle\CategoryBundle\Document;
 use Black\Bundle\CategoryBundle\Model\AbstractCategory;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Category
  *
  * @ODM\MappedSuperclass()
- * @Gedmo\Tree(type="materializedPath", activateLocking=true)
+ * @Gedmo\Tree(type="materializedPath")
  *
  * @package Black\Bundle\CategoryBundle\Document
  * @author  Alexandre Balmes <albalmes@gmail.com>
@@ -27,6 +28,29 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  */
 abstract class Category extends AbstractCategory
 {
+
+    /**
+     * @ODM\String
+     * @Assert\Length(max="255")
+     * @Assert\Type(type="string")
+     * @Gedmo\TreePathSource
+     */
+    protected $name;
+
+    /**
+     * @ODM\String
+     * @Assert\Length(max="255")
+     * @Assert\Type(type="string")
+     * @Gedmo\Slug(fields={"name"})
+     */
+    protected $slug;
+
+    /**
+     * @ODM\String
+     * @Assert\Type(type="string")
+     */
+    protected $description;
+
     /**
      * @ODM\Field(type="string")
      * @Gedmo\TreePath(separator="|")

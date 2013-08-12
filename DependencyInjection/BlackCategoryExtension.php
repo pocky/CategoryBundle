@@ -2,10 +2,11 @@
 
 namespace Black\Bundle\CategoryBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 /**
  * This is the class that loads and manages your bundle configuration
@@ -19,10 +20,108 @@ class BlackCategoryExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
+        $processor      = new Processor();
+        $configuration  = new Configuration();
+        $config         = $processor->processConfiguration($configuration, $configs);
 
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.xml');
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+
+        if (!isset($config['db_driver'])) {
+            throw new \InvalidArgumentException('You must provide the black_category.db_driver configuration');
+        }
+
+        try {
+            $loader->load(sprintf('%s.xml', $config['db_driver']));
+        } catch (\InvalidArgumentException $e) {
+            throw new \InvalidArgumentException(
+                sprintf('The db_driver "%s" is not supported by engine', $config['db_driver'])
+            );
+        }
+
+        $this->remapParametersNamespaces(
+            $config,
+            $container,
+            array(
+                ''      => array(
+                    'db_driver'               => 'black_category.db_driver',
+                    'category_class'          => 'black_category.category.model.class',
+                    'category_manager'        => 'black_category.category.manager',
+                )
+            )
+        );
+
+        if (!empty($config['category'])) {
+            $this->loadCategory($config['category'], $container, $loader);
+        }
+    }
+
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     * @param XmlFileLoader    $loader
+     */
+    private function loadCategory(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    {
+        foreach (array('category') as $basename) {
+            $loader->load(sprintf('%s.xml', $basename));
+        }
+
+        $this->remapParametersNamespaces(
+            $config,
+            $container,
+            array(
+                'form'  => 'black_category.category.form.%s',
+            )
+        );
+
+    }
+
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     * @param array            $map
+     */
+    protected function remapParameters(array $config, ContainerBuilder $container, array $map)
+    {
+        foreach ($map as $name => $paramName) {
+            if (array_key_exists($name, $config)) {
+                $container->setParameter($paramName, $config[$name]);
+            }
+        }
+    }
+
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     * @param array            $namespaces
+     */
+    protected function remapParametersNamespaces(array $config, ContainerBuilder $container, array $namespaces)
+    {
+        foreach ($namespaces as $ns => $map) {
+
+            if ($ns) {
+                if (!array_key_exists($ns, $config)) {
+                    continue;
+                }
+                $namespaceConfig = $config[$ns];
+            } else {
+                $namespaceConfig = $config;
+            }
+            if (is_array($map)) {
+                $this->remapParameters($namespaceConfig, $container, $map);
+            } else {
+                foreach ($namespaceConfig as $name => $value) {
+                    $container->setParameter(sprintf($map, $name), $value);
+                }
+            }
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getAlias()
+    {
+        return 'black_category';
     }
 }

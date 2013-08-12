@@ -1,0 +1,88 @@
+category:
+  admin:
+    actions:
+      text: Actions
+      back:
+        text: Retour
+      
+    breadLine:
+      category:
+        breadcrumb:
+          a:
+            text: Gérer les catégories
+            title: Gérer les catégories
+        new:
+          text: Créer une catégorie
+      shortcut:
+        text: Raccourci
+          
+    contentTop:
+      config:
+        category:
+          text: Configurations des catégories
+      new:
+        text: Créer une catégorie
+      edit:
+        text: Editer une catégorie
+      category:
+        text: Catégories
+          
+    edit:
+      category:
+        text: Modifier une category
+          
+    fieldset:
+      config:
+        text: Configuration des catégories
+    
+    index:
+      category:
+        text: Pages
+    
+    new:
+      category:
+        text: Nouvelle catégorie
+    
+    sidebar:
+      config:
+        category:
+          a:
+            text: Paramètres des catégories
+            title: Paramètres des catégories
+      categorys:
+        text: Catégories
+        a:
+          text: Liste des catégories
+          title: Voir vos catégories
+          
+    category:
+      actions:
+        text: Actions
+
+    js:
+      remove:
+        text: Enlever
+  www:
+    category:
+      not:
+        found:
+          La catégorie demandée n'a pas été trouvée
+    index:
+      read:
+        a:
+          text: Lire la suite
+          title: Lire la suite de %name%
+    
+    memuPages:
+      content:
+        a:
+          title: Accéder au contenu de la catégorie %name%
+      error:
+        text: Il n'y a pas de catégories.
+    
+    recentPages:
+      content:
+        a:
+          title: Accéder au contenu de la catégorie %name%
+      error:
+        text: Il n'y a pas de catégories.

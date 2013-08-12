@@ -1,0 +1,10 @@
+{% block script %}
+<script type="text/javascript">
+    {% block js %}
+    jQuery(document).ready(function() {
+        jQuery('#slug').slugify('#black_category_category_form_name')
+    });
+
+    {% endblock %}
+</script>
+{% endblock %}
