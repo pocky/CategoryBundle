@@ -23,6 +23,21 @@ abstract class AbstractCategory implements CategoryInterface
     /**
      * @var
      */
+    protected $name;
+
+    /**
+     * @var
+     */
+    protected $slug;
+
+    /**
+     * @var
+     */
+    protected $description;
+
+    /**
+     * @var
+     */
     protected $path;
 
     /**
@@ -39,6 +54,63 @@ abstract class AbstractCategory implements CategoryInterface
      * @var
      */
     protected $children;
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
 
     /**
      * @return mixed
