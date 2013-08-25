@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the Black package.
  *
@@ -9,25 +8,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Black\Bundle\CategoryBundle\Document;
-
-use Black\Bundle\CategoryBundle\Model\AbstractCategory;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-use Symfony\Component\Validator\Constraints as Assert;
+namespace Black\Bundle\CategoryBundle\Traits;
 
 /**
- * Class Category
- *
- * @ODM\MappedSuperclass()
- * @Gedmo\Tree(type="materializedPath")
- *
- * @package Black\Bundle\CategoryBundle\Document
- * @author  Alexandre Balmes <albalmes@gmail.com>
- * @license http://opensource.org/licenses/mit-license.php MIT
+ * Class CategoryDocumentTrait
+ * @package Black\Bundle\CategoryBundle\Traits
  */
-abstract class Category extends AbstractCategory
-{
+trait CategoryDocumentTrait {
 
     /**
      * @ODM\String
@@ -82,4 +69,5 @@ abstract class Category extends AbstractCategory
     {
         return $this->lockTime;
     }
+
 }

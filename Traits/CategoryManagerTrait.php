@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the Blackengine package.
+ * This file is part of the Black package.
  *
  * (c) Alexandre Balmes <albalmes@gmail.com>
  *
@@ -8,20 +8,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Black\Bundle\CategoryBundle\Doctrine;
+namespace Black\Bundle\CategoryBundle\Traits;
 
-use Black\Bundle\CategoryBundle\Model\CategoryManagerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 /**
- * Class PageManager
- *
- * @package Black\Bundle\CategoryBundle\Doctrine
- * @author  Alexandre Balmes <albalmes@gmail.com>
- * @license http://opensource.org/licenses/mit-license.php MIT
+ * Class CategoryManagerTrait
+ * @package Black\Bundle\CategoryBundle\Traits
  */
-class CategoryManager implements CategoryManagerInterface
-{
+trait CategoryManagerTrait {
+
     /**
      * @var ObjectManager
      */
@@ -92,7 +88,7 @@ class CategoryManager implements CategoryManagerInterface
 
     /**
      * Remove the model
-     * 
+     *
      * @param object $model
      *
      * @throws \InvalidArgumentException
@@ -118,7 +114,7 @@ class CategoryManager implements CategoryManagerInterface
 
     /**
      * Remove and flush
-     * 
+     *
      * @param mixed $model
      */
     public function removeAndFlush($model)

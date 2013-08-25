@@ -22,7 +22,7 @@ use Black\Bundle\CategoryBundle\Model\CategoryInterface;
  * @author  Alexandre Balmes <albalmes@gmail.com>
  * @license http://opensource.org/licenses/mit-license.php MIT
  */
-class CategoryFormHandler
+abstract class CategoryFormHandler
 {
     /**
      * @var \Symfony\Component\HttpFoundation\Request
