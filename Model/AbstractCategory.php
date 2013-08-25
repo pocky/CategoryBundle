@@ -21,41 +21,6 @@ namespace Black\Bundle\CategoryBundle\Model;
 abstract class AbstractCategory implements CategoryInterface
 {
     /**
-     * @var
-     */
-    protected $name;
-
-    /**
-     * @var
-     */
-    protected $slug;
-
-    /**
-     * @var
-     */
-    protected $description;
-
-    /**
-     * @var
-     */
-    protected $path;
-
-    /**
-     * @var
-     */
-    protected $parent;
-
-    /**
-     * @var
-     */
-    protected $level;
-
-    /**
-     * @var
-     */
-    protected $children;
-
-    /**
      * @return mixed
      */
     public function getId()

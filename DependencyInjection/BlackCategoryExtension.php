@@ -25,55 +25,6 @@ class BlackCategoryExtension extends Extension
         $config         = $processor->processConfiguration($configuration, $configs);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-
-        if (!isset($config['db_driver'])) {
-            throw new \InvalidArgumentException('You must provide the black_category.db_driver configuration');
-        }
-
-        try {
-            $loader->load(sprintf('%s.xml', $config['db_driver']));
-        } catch (\InvalidArgumentException $e) {
-            throw new \InvalidArgumentException(
-                sprintf('The db_driver "%s" is not supported by engine', $config['db_driver'])
-            );
-        }
-
-        $this->remapParametersNamespaces(
-            $config,
-            $container,
-            array(
-                ''      => array(
-                    'db_driver'               => 'black_category.db_driver',
-                    'category_class'          => 'black_category.category.model.class',
-                    'category_manager'        => 'black_category.category.manager',
-                )
-            )
-        );
-
-        if (!empty($config['category'])) {
-            $this->loadCategory($config['category'], $container, $loader);
-        }
-    }
-
-    /**
-     * @param array            $config
-     * @param ContainerBuilder $container
-     * @param XmlFileLoader    $loader
-     */
-    private function loadCategory(array $config, ContainerBuilder $container, XmlFileLoader $loader)
-    {
-        foreach (array('category') as $basename) {
-            $loader->load(sprintf('%s.xml', $basename));
-        }
-
-        $this->remapParametersNamespaces(
-            $config,
-            $container,
-            array(
-                'form'  => 'black_category.category.form.%s',
-            )
-        );
-
     }
 
     /**

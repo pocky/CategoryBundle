@@ -21,7 +21,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  * @author  Alexandre Balmes <albalmes@gmail.com>
  * @license http://opensource.org/licenses/mit-license.php MIT
  */
-class CategoryType extends AbstractType
+abstract class CategoryType extends AbstractType
 {
     /**
      * @var type 
