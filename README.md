@@ -1,0 +1,4 @@
+CategoryBundle
+==============
+
+[WIP] Category Management
